@@ -6,8 +6,8 @@
 | first_name           | string | null: false |
 | family_name_katakana | string | null: false |
 | first_name_katakana  | string | null: false |
-| encrypted_password   | text   | null: false |
-| e_mail               | string | null: false |
+| encrypted_password   | string | null: false |
+| email                | string | null: false |
 | birthday             | date   | null: false |
 |                      |        |             |
 
