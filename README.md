@@ -31,7 +31,7 @@
 
 ### Association
 - belongs_to :user
-- belongs_to :buy
+- has_one :buy
 
 ## buyテーブル
 | Column  | Type       | Option                         |
@@ -42,11 +42,12 @@
 
 ### Association
 - belongs_to :user
-- has_one :product
+- belongs_to :product
+- has_one :street_address
 
 
 
-## Street address
+## street_address
 | Column           | Type       | Option                         |
 | ---------------- | ---------- | ------------------------------ |
 | postal_code      | string     | null: false                    |
@@ -59,4 +60,4 @@
 |                  |            |                                |
 
 ### Association
-- bes＿one :buy
+- belongs_to :buy
