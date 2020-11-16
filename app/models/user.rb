@@ -5,17 +5,15 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :nickname,             presence: true
-  validates :family_name,          presence: true
-  validates :first_name,           presence: true
-  validates :family_name_katakana, presence: true
-  validates :first_name_katakana,  presence: true
   validates :birthday,             presence: true
+  with_options presence: true do
+    validates :family_name,          format: { with: /\A[ぁ-んァ-ン一-龥]/, message: "is invalid. Input full-width characters."}
+    validates :first_name,           format: { with: /\A[ぁ-んァ-ン一-龥]/, message: "is invalid. Input full-width characters."}
+    validates :family_name_katakana, format: { with: /\A[ァ-ヶー－]+\z/, message: "is invalid. Input full-width katakana characters."}
+    validates :first_name_katakana,  format: { with: /\A[ァ-ヶー－]+\z/, message: "is invalid. Input full-width katakana characters."}
+  end
   
   PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
   validates_format_of  :password,   with: PASSWORD_REGEX, message: "Password Include both letters and numbers"
-  
-  # with_options presence: true do
-  #   validates :password,   format: { with: /\A[a-zA-Z0-9]+\z/i,message: "Password Include both letters and numbers"}
-  #   validates :password_confirmation, format: { with: /\A[a-zA-Z0-9]+\z/i,message: "Password Include both letters and numbers"}
-  # end
+
 end
