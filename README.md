@@ -12,19 +12,19 @@
 |                      |        |             |
 
 ### Association
-- has_many :products
+- has_many :items
 - has_many :buys
 
-## productテーブル
+## itemテーブル
 | Column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
 | name             | string     | null: false                    |
-| category_id      | interger   | null: false                    |
-| status_id        | interger   | null: false                    |
-| delivery_fee_id  | interger   | null: false                    |
-| shipping_area_id | interger   | null: false                    |
-| says_to_ship-id  | interger   | null: false                    |
-| price            | interger   | null: false                    |
+| category_id      | integer    | null: false                    |
+| status_id        | integer    | null: false                    |
+| delivery_fee_id  | integer    | null: false                    |
+| shipping_area_id | integer    | null: false                    |
+| says_to_ship_id  | integer    | null: false                    |
+| price            | integer    | null: false                    |
 | explanation      | text       | null: false                    |
 | user             | references | null: false, foreign_key: true |
 
@@ -42,7 +42,7 @@
 
 ### Association
 - belongs_to :user
-- belongs_to :product
+- belongs_to :item
 - has_one :street_address
 
 
