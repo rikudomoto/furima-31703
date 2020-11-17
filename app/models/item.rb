@@ -4,6 +4,6 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one    :buy
 
-  validates :name, :explanation, presence: true
+  validates :name, :explanation, :price,                                           presence: true
   validates :category_id, :status, :delivery_fee, :shipping_area, :says_to_ship,   numericality: { other_than: 1 }
 end
