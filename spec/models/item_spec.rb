@@ -56,8 +56,13 @@ describe Item do
       @item.valid?
       expect(@item.errors.full_messages).to include("Price can't be blank", 'Price is invalid. Please write all numbers in half size')
     end
-    it '価格の範囲が、¥300~¥9,999,999の間であること' do
+    it '価格の範囲が、¥300未満では出品できないこと' do
       @item.price = 299
+      @item.valid?
+      expect(@item.errors.full_messages).to include('Price is invalid. Please write all numbers in half size')
+    end
+    it '価格の範囲が、¥10,000,000以上では出品できないこと' do
+      @item.price = 100_000_000
       @item.valid?
       expect(@item.errors.full_messages).to include('Price is invalid. Please write all numbers in half size')
     end
