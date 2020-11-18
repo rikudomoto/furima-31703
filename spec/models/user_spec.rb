@@ -21,12 +21,12 @@ describe User do
       @user.valid?
       expect(@user.errors.full_messages).to include('Email is invalid')
     end
-    it 'emailが重複すると登録できない'do
+    it 'emailが重複すると登録できない' do
       @user.save
       another_user = FactoryBot.build(:user)
       another_user.email = @user.email
       another_user.valid?
-      expect(another_user.errors.full_messages).to include("Email has already been taken")
+      expect(another_user.errors.full_messages).to include('Email has already been taken')
     end
     it 'passwordが空では登録できない' do
       @user.password = ''
@@ -89,4 +89,4 @@ describe User do
       expect(@user.errors.full_messages).to include("Birthday can't be blank")
     end
   end
- end
+end
