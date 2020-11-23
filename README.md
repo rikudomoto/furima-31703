@@ -37,7 +37,7 @@
 | Column  | Type       | Option                         |
 | ------- | ---------- | ------------------------------ |
 | user    | references | null: false, foreign_key: true |
-| product | references | null: false, foreign_key: true |
+| item    | references | null: false, foreign_key: true |
 |         |            |                                |
 
 ### Association
@@ -51,7 +51,7 @@
 | Column           | Type       | Option                         |
 | ---------------- | ---------- | ------------------------------ |
 | postal_code      | string     | null: false                    |
-| shipping_area_id | interger   | null: false                    |
+| shipping_area_id | integer    | null: false                    |
 | municipality     | string     | null: false                    |
 | address          | string     | null: false                    |
 | phone_number     | string     | null: false                    |
