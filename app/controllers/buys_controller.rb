@@ -4,8 +4,12 @@ class BuysController < ApplicationController
   def index
     @item = Item.find(params[:item_id])
     @buy_from = BuyFrom.new
-    redirect_to root_path if @item.user_id == current_user.id
-    redirect_to root_path if @item.buy
+    if (@item.user_id == current_user.id) 
+    redirect_to root_path 
+   end
+   if @item.buy
+    redirect_to root_path
+   end
   end
 
   def create
