@@ -1,8 +1,15 @@
 class BuysController < ApplicationController
-  
+  before_action :authenticate_user!
+
   def index
     @item = Item.find(params[:item_id])
     @buy_from = BuyFrom.new
+    if @item.user_id == current_user.id
+      redirect_to root_path
+    end
+    if @item.buy
+      redirect_to root_path
+    end
   end
 
 
@@ -26,7 +33,7 @@ class BuysController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = "sk_test_27383186c383973f7a70a922"
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @item.price,
       card: buy_from_params[:token],
