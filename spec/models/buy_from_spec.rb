@@ -44,6 +44,11 @@ RSpec.describe BuyFrom, type: :model do
       @buy_from.valid?
       expect(@buy_from.errors.full_messages).to include("Phone number Figuresthe 11th digits")
     end
+    it "tokenが空では登録できない事" do
+      @buy_from.token = ""
+      @buy_from.valid?
+      expect(@buy_from.errors.full_messages).to include("Token can't be blank")
+    end
 
 
   end
