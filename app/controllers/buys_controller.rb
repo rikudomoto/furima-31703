@@ -4,14 +4,9 @@ class BuysController < ApplicationController
   def index
     @item = Item.find(params[:item_id])
     @buy_from = BuyFrom.new
-    if @item.user_id == current_user.id
-      redirect_to root_path
-    end
-    if @item.buy
-      redirect_to root_path
-    end
+    redirect_to root_path if @item.user_id == current_user.id
+    redirect_to root_path if @item.buy
   end
-
 
   def create
     @buy_from = BuyFrom.new(buy_from_params)
@@ -25,9 +20,9 @@ class BuysController < ApplicationController
       render  :index
     end
   end
-  
 
   private
+
   def buy_from_params
     params.require(:buy_from).permit(:postal_code, :shipping_area_id, :municipality, :address, :phone_number, :building_name).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
