@@ -1,26 +1,24 @@
 class BuysController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_item
 
   def index
-    @item = Item.find(params[:item_id])
+    set_item
     @buy_from = BuyFrom.new
-    if (@item.user_id == current_user.id) 
+    if (@item.user_id == current_user.id) || @item.buy
     redirect_to root_path 
-   end
-   if @item.buy
-    redirect_to root_path
    end
   end
 
   def create
     @buy_from = BuyFrom.new(buy_from_params)
-    @item = Item.find(params[:item_id])
+    set_item
     if @buy_from.valid?
       pay_item
       @buy_from.save
       redirect_to root_path
     else
-      @item = Item.find(params[:item_id])
+      set_item
       render  :index
     end
   end
@@ -38,5 +36,9 @@ class BuysController < ApplicationController
       card: buy_from_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def set_item
+    @item = Item.find(params[:item_id])
   end
 end
