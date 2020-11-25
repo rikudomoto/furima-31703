@@ -5,10 +5,17 @@ RSpec.describe BuyFrom, type: :model do
     before do
       @buy_from = FactoryBot.build(:buy_from)
     end
-
+    context "正常に登録できる場合 " do
     it '全ての値が正しく入力されていれば保存できる' do
       expect(@buy_from).to be_valid
     end
+    it '建物がなくても登録できる' do
+      @buy_from.building_name = '' 
+      be_valid
+    end
+  end
+  
+    context "登録できない場合 "do
     it '郵便番号がないと保存できない' do
       @buy_from.postal_code = nil
       @buy_from.valid?
@@ -49,10 +56,6 @@ RSpec.describe BuyFrom, type: :model do
       @buy_from.valid?
       expect(@buy_from.errors.full_messages).to include("Token can't be blank")
     end
-    it '建物がなくても登録できる' do
-      @buy_from.building_name = ''
-      @buy_from.valid?
-      expect(@buy_from.errors.full_messages).to include
-    end
+   end
   end
 end
