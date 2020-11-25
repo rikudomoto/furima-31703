@@ -3,7 +3,6 @@ class BuysController < ApplicationController
   before_action :set_item
 
   def index
-    set_item
     @buy_from = BuyFrom.new
     if (@item.user_id == current_user.id) || @item.buy
     redirect_to root_path 
@@ -12,7 +11,6 @@ class BuysController < ApplicationController
 
   def create
     @buy_from = BuyFrom.new(buy_from_params)
-    set_item
     if @buy_from.valid?
       pay_item
       @buy_from.save

@@ -49,5 +49,10 @@ RSpec.describe BuyFrom, type: :model do
       @buy_from.valid?
       expect(@buy_from.errors.full_messages).to include("Token can't be blank")
     end
+    it '建物がなくても登録できる' do
+      @buy_from.building_name = ''
+      @buy_from.valid?
+      expect(@buy_from.errors.full_messages).to include
+    end
   end
 end
