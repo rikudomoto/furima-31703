@@ -16,7 +16,6 @@ class BuysController < ApplicationController
       @buy_from.save
       redirect_to root_path
     else
-      set_item
       render  :index
     end
   end

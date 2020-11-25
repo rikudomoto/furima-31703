@@ -14,14 +14,14 @@ RSpec.describe BuyFrom, type: :model do
       be_valid
     end
   end
-  
+
     context "登録できない場合 "do
     it '郵便番号がないと保存できない' do
       @buy_from.postal_code = nil
       @buy_from.valid?
       expect(@buy_from.errors.full_messages).to include("Postal code can't be blank", 'Postal code Please enter a hyphen')
     end
-    it '都道府県がないと保存できない' do
+    it '都道府県が１の場合は保存できない' do
       @buy_from.shipping_area_id = 1
       @buy_from.valid?
       expect(@buy_from.errors.full_messages).to include('Shipping area must be other than 1')
@@ -50,6 +50,21 @@ RSpec.describe BuyFrom, type: :model do
       @buy_from.phone_number = '090-2222-2222'
       @buy_from.valid?
       expect(@buy_from.errors.full_messages).to include('Phone number Figuresthe 11th digits')
+    end
+    it '電話番号が全角文字のみだと登録できない'do
+      @buy_from.phone_number = '０９０１１１１１１１１'
+      @buy_from.valid?
+      expect(@buy_from.errors.full_messages).to include('Phone number Figuresthe 11th digits')
+    end
+    it '電話番号が半角英語だと登録できない'do
+      @buy_from.phone_number = 'ooooooooooo'
+      @buy_from.valid?
+      expect(@buy_from.errors.full_messages).to include("Phone number Figuresthe 11th digits")
+    end
+    it '電話番号が半角数字＋半角英語混合だと登録できない'do
+      @buy_from.phone_number = 'oooooo11111'
+      @buy_from.valid?
+      expect(@buy_from.errors.full_messages).to include("Phone number Figuresthe 11th digits")
     end
     it 'tokenが空では登録できない事' do
       @buy_from.token = ''
