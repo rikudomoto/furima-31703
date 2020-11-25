@@ -11,7 +11,7 @@ RSpec.describe BuyFrom, type: :model do
     end
     it '建物がなくても登録できる' do
       @buy_from.building_name = '' 
-      be_valid
+      expect(@buy_from).to be_valid
     end
   end
 
@@ -42,7 +42,7 @@ RSpec.describe BuyFrom, type: :model do
       expect(@buy_from.errors.full_messages).to include("Phone number can't be blank", 'Phone number Figuresthe 11th digits')
     end
     it '郵便番号にハイフンがないと保存できない' do
-      @buy_from.postal_code = 111_111
+      @buy_from.postal_code = 1111111
       @buy_from.valid?
       expect(@buy_from.errors.full_messages).to include('Postal code Please enter a hyphen')
     end
