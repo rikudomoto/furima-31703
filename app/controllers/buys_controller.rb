@@ -27,8 +27,8 @@ class BuysController < ApplicationController
   end
 
   def pay_item
-    # Payjp.api_key = Rails.application.credentials.payjp[:secret_key]
-    Payjp.api_key = Payjp.setSecretKey(process.env.PAYJP_SECRET_KEY);
+    Payjp.api_key = Rails.application.credentials.payjp[:secret_key]
+    # Payjp.api_key = Payjp.setSecretKey(process.env.PAYJP_SECRET_KEY);
     Payjp::Charge.create(
       amount: @item.price,
       card: buy_from_params[:token],
